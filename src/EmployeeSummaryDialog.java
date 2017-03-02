@@ -26,14 +26,14 @@ import javax.swing.table.DefaultTableModel;
 
 import net.miginfocom.swing.MigLayout;
 
-public class EmployeeSummaryDialog extends JDialog implements ActionListener {
+class EmployeeSummaryDialog extends JDialog implements ActionListener {
 
 	//made variables private
 	// vector with all Employees details
 	private Vector<Object> allEmployees;
 	private JButton back;
 	
-	public EmployeeSummaryDialog(Vector<Object> allEmployees) {
+	EmployeeSummaryDialog(Vector<Object> allEmployees) {
 		setTitle("Employee Summary");
 		setModal(true);
 		this.allEmployees = allEmployees;
@@ -49,23 +49,23 @@ public class EmployeeSummaryDialog extends JDialog implements ActionListener {
 
 	}
 
-	public Container summaryPane() {
+	private Container summaryPane() {
 		JPanel summaryDialog = new JPanel(new MigLayout());
 		JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 		JTable employeeTable;
 		DefaultTableModel tableModel;
 		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
 		DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
-		Vector<String> header = new Vector<String>();
+		Vector<String> header = new Vector<>();
 		String[] headerName = { "ID", "PPS Number", "Surname", "First Name", "Gender", "Department", "Salary",
 				"Full Time" };
 		int[] colWidth = { 15, 100, 120, 120, 50, 120, 80, 80 };
 		centerRenderer.setHorizontalAlignment(JLabel.CENTER);
 		leftRenderer.setHorizontalAlignment(JLabel.LEFT);
 
-		for (int i = 0; i < headerName.length; i++) {
-			header.addElement(headerName[i]);
-		}
+        for (String aHeaderName : headerName) {
+            header.addElement(aHeaderName);
+        }
 		// construnct table and choose table model for each column
 		tableModel = new DefaultTableModel(this.allEmployees, header) {
 			public Class getColumnClass(int c) {
@@ -116,7 +116,7 @@ public class EmployeeSummaryDialog extends JDialog implements ActionListener {
 
 	}
 	// format for salary column
-	static class DecimalFormatRenderer extends DefaultTableCellRenderer {
+	private static class DecimalFormatRenderer extends DefaultTableCellRenderer {
 		 private static final DecimalFormat format = new DecimalFormat(
 		 "\u20ac ###,###,##0.00" );
 
@@ -127,7 +127,7 @@ public class EmployeeSummaryDialog extends JDialog implements ActionListener {
 			 JLabel label = (JLabel) c;
 			 label.setHorizontalAlignment(JLabel.RIGHT);
 
-			value = format.format((Number) value);
+			value = format.format(value);
 
 			return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 		}

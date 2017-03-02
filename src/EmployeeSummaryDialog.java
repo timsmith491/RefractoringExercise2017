@@ -66,6 +66,7 @@ class EmployeeSummaryDialog extends JDialog implements ActionListener {
         for (String aHeaderName : headerName) {
             header.addElement(aHeaderName);
         }
+
 		// construnct table and choose table model for each column
 		tableModel = new DefaultTableModel(this.allEmployees, header) {
 			public Class getColumnClass(int c) {

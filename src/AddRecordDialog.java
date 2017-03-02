@@ -23,10 +23,13 @@ import javax.swing.JTextField;
 import net.miginfocom.swing.MigLayout;
 
 public class AddRecordDialog extends JDialog implements ActionListener {
-	JTextField idField, ppsField, surnameField, firstNameField, salaryField;
-	JComboBox<String> genderCombo, departmentCombo, fullTimeCombo;
-	JButton save, cancel;
-	EmployeeDetails parent;
+
+	//made variables private
+	private JTextField idField, ppsField, surnameField, firstNameField, salaryField;
+	private JComboBox<String> genderCombo, departmentCombo, fullTimeCombo;
+	private JButton save, cancel;
+	private EmployeeDetails parent;
+
 	// constructor for add record dialog
 	public AddRecordDialog(EmployeeDetails parent) {
 		setTitle("Add Record");
@@ -43,7 +46,7 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 		setSize(500, 370);
 		setLocation(350, 250);
 		setVisible(true);
-	}// end AddRecordDialog
+	}
 
 	// initialize dialog container
 	public Container dialogPane() {
@@ -99,13 +102,13 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 					field.setDocument(new JTextFieldLimit(9));
 				else
 				field.setDocument(new JTextFieldLimit(20));
-			}// end else if
-		}// end for
+			}
+		}
 		idField.setText(Integer.toString(this.parent.getNextFreeId()));
 		return empDetails;
 	}
 
-	// add record to file
+
 	public void addRecord() {
 		boolean fullTime = false;
 		Employee theEmployee;//create a new employee
@@ -130,48 +133,47 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 
 		// if any of inputs are in wrong format, colour text field and display message
 		if (ppsField.getText().equals("")) {
-//			ppsField.setBackground(new Color(255, 150, 150));
 			ppsField.setBackground(BACKGROUND_COLOR);
 			valid = false;
-		}// end if
+		}
 		if (this.parent.correctPps(this.ppsField.getText().trim(), -1)) {
 			ppsField.setBackground(BACKGROUND_COLOR);
 			valid = false;
-		}// end if
+		}
 		if (surnameField.getText().isEmpty()) {
 			surnameField.setBackground(BACKGROUND_COLOR);
 			valid = false;
-		}// end if
+		}
 		if (firstNameField.getText().isEmpty()) {
 			firstNameField.setBackground(BACKGROUND_COLOR);
 			valid = false;
-		}// end if
+		}
 		if (genderCombo.getSelectedIndex() == 0) {
 			genderCombo.setBackground(BACKGROUND_COLOR);
 			valid = false;
-		}// end if
+		}
 		if (departmentCombo.getSelectedIndex() == 0) {
 			departmentCombo.setBackground(BACKGROUND_COLOR);
 			valid = false;
-		}// end if
+		}
 		try {// try to get values from text field
 			Double.parseDouble(salaryField.getText());
 			// check if salary is greater than 0
 			if (Double.parseDouble(salaryField.getText()) < 0) {
 				salaryField.setBackground(BACKGROUND_COLOR);
 				valid = false;
-			}// end if
-		}// end try
+			}
+		}
 		catch (NumberFormatException num) {
 			salaryField.setBackground(BACKGROUND_COLOR);
 			valid = false;
-		}// end catch
+		}
 		if (fullTimeCombo.getSelectedIndex() == 0) {
 			fullTimeCombo.setBackground(BACKGROUND_COLOR);
 			valid = false;
-		}// end if
+		}
 		return valid;
-	}// end checkInput
+	}
 
 	// set text field to white colour
 	public void setToWhite() {
@@ -187,7 +189,7 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 		genderCombo.setBackground(WHITE_BACKGROUND);
 		departmentCombo.setBackground(WHITE_BACKGROUND);
 		fullTimeCombo.setBackground(WHITE_BACKGROUND);
-	}// end setToWhite
+	}
 
 	// action performed
 	public void actionPerformed(ActionEvent e) {
@@ -198,14 +200,14 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 				addRecord();// add record to file
 				dispose();// dispose dialog
 				this.parent.changesMade = true;
-			}// end if
+			}
 			// else display message and set text fields to white colour
 			else {
 				JOptionPane.showMessageDialog(null, "Wrong values or format! Please check!");
 				setToWhite();
-			}// end else
-		}// end if
+			}
+		}
 		else if (e.getSource() == cancel)
 			dispose();// dispose dialog
-	}// end actionPerformed
-}// end class AddRecordDialog
+	}
+}

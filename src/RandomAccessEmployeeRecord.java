@@ -7,25 +7,25 @@
 import java.io.RandomAccessFile;
 import java.io.IOException;
 
-public class RandomAccessEmployeeRecord extends Employee
+class RandomAccessEmployeeRecord extends Employee
 {  
-    public static final int SIZE = 175; // Size of each RandomAccessEmployeeRecord object
+    static final int SIZE = 175; // Size of each RandomAccessEmployeeRecord object
 
    // Create empty record
-   public RandomAccessEmployeeRecord()
+   RandomAccessEmployeeRecord()
    {
       this(0, "","","",'\0', "", 0.0, false);
    } // end RandomAccessEmployeeRecord
 
    // Initialize record with details
-   public RandomAccessEmployeeRecord( int employeeId, String pps, String surname, String firstName, char gender, 
-		   String department, double salary, boolean fullTime)
+   RandomAccessEmployeeRecord(int employeeId, String pps, String surname, String firstName, char gender,
+                              String department, double salary, boolean fullTime)
    {
       super(employeeId, pps, surname, firstName, gender, department, salary, fullTime);
    } // end RandomAccessEmployeeRecord
 
    // Read a record from specified RandomAccessFile
-   public void read( RandomAccessFile file ) throws IOException
+   void read(RandomAccessFile file) throws IOException
    {
 	   	setEmployeeId(file.readInt());
 		setPps(readName(file));
@@ -51,7 +51,7 @@ public class RandomAccessEmployeeRecord extends Employee
       return new String( name ).replace( '\0', ' ' );
    }
 
-   public void write( RandomAccessFile file ) throws IOException
+   void write(RandomAccessFile file) throws IOException
    {
       file.writeInt( getEmployeeId() );
       writeName(file, getPps().toUpperCase());
@@ -67,7 +67,7 @@ public class RandomAccessEmployeeRecord extends Employee
    private void writeName( RandomAccessFile file, String name )
       throws IOException
    {
-      StringBuffer buffer = null;
+      StringBuffer buffer;
 
       if ( name != null ) 
          buffer = new StringBuffer( name );

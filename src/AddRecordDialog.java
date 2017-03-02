@@ -37,12 +37,12 @@ class AddRecordDialog extends JDialog implements ActionListener {
 		this.parent = parent;
 		this.parent.setEnabled(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		
+
 		JScrollPane scrollPane = new JScrollPane(dialogPane());
 		setContentPane(scrollPane);
-		
+
 		getRootPane().setDefaultButton(save);
-		
+
 		setSize(500, 370);
 		setLocation(350, 250);
 		setVisible(true);
@@ -55,33 +55,35 @@ class AddRecordDialog extends JDialog implements ActionListener {
 		buttonPanel = new JPanel();
 		JTextField field;
 
+		String labelConstant = "growx, pushx";
+		String textFieldConstant = "growx, pushx, wrap";
+
 		empDetails.setBorder(BorderFactory.createTitledBorder("Employee Details"));
 
-		empDetails.add(new JLabel("ID:"), "growx, pushx");
-		empDetails.add(idField = new JTextField(20), "growx, pushx, wrap");
+		empDetails.add(new JLabel("ID:"), labelConstant);
+		empDetails.add(idField = new JTextField(20), textFieldConstant);
 		idField.setEditable(false);
-		
 
-		empDetails.add(new JLabel("PPS Number:"), "growx, pushx");
-		empDetails.add(ppsField = new JTextField(20), "growx, pushx, wrap");
+		empDetails.add(new JLabel("PPS Number:"), labelConstant);
+		empDetails.add(ppsField = new JTextField(20), textFieldConstant);
 
-		empDetails.add(new JLabel("Surname:"), "growx, pushx");
-		empDetails.add(surnameField = new JTextField(20), "growx, pushx, wrap");
+		empDetails.add(new JLabel("Surname:"), labelConstant);
+		empDetails.add(surnameField = new JTextField(20), textFieldConstant);
 
-		empDetails.add(new JLabel("First Name:"), "growx, pushx");
-		empDetails.add(firstNameField = new JTextField(20), "growx, pushx, wrap");
+		empDetails.add(new JLabel("First Name:"), labelConstant);
+		empDetails.add(firstNameField = new JTextField(20), textFieldConstant);
 
-		empDetails.add(new JLabel("Gender:"), "growx, pushx");
-		empDetails.add(genderCombo = new JComboBox<>(this.parent.gender), "growx, pushx, wrap");
+		empDetails.add(new JLabel("Gender:"), labelConstant);
+		empDetails.add(genderCombo = new JComboBox<>(this.parent.gender), textFieldConstant);
 
 		empDetails.add(new JLabel("Department:"), "growx, pushx");
-		empDetails.add(departmentCombo = new JComboBox<>(this.parent.department), "growx, pushx, wrap");
+		empDetails.add(departmentCombo = new JComboBox<>(this.parent.department), textFieldConstant);
 
-		empDetails.add(new JLabel("Salary:"), "growx, pushx");
-		empDetails.add(salaryField = new JTextField(20), "growx, pushx, wrap");
+		empDetails.add(new JLabel("Salary:"), labelConstant);
+		empDetails.add(salaryField = new JTextField(20), textFieldConstant);
 
-		empDetails.add(new JLabel("Full Time:"), "growx, pushx");
-		empDetails.add(fullTimeCombo = new JComboBox<>(this.parent.fullTime), "growx, pushx, wrap");
+		empDetails.add(new JLabel("Full Time:"), labelConstant);
+		empDetails.add(fullTimeCombo = new JComboBox<>(this.parent.fullTime), textFieldConstant);
 
 		buttonPanel.add(save = new JButton("Save"));
 		save.addActionListener(this);

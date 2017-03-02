@@ -22,7 +22,7 @@ import javax.swing.JTextField;
 
 import net.miginfocom.swing.MigLayout;
 
-public class AddRecordDialog extends JDialog implements ActionListener {
+class AddRecordDialog extends JDialog implements ActionListener {
 
 	//made variables private
 	private JTextField idField, ppsField, surnameField, firstNameField, salaryField;
@@ -31,7 +31,7 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 	private EmployeeDetails parent;
 
 	// constructor for add record dialog
-	public AddRecordDialog(EmployeeDetails parent) {
+	AddRecordDialog(EmployeeDetails parent) {
 		setTitle("Add Record");
 		setModal(true);
 		this.parent = parent;
@@ -49,7 +49,7 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 	}
 
 	// initialize dialog container
-	public Container dialogPane() {
+	private Container dialogPane() {
 		JPanel empDetails, buttonPanel;
 		empDetails = new JPanel(new MigLayout());
 		buttonPanel = new JPanel();
@@ -72,16 +72,16 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 		empDetails.add(firstNameField = new JTextField(20), "growx, pushx, wrap");
 
 		empDetails.add(new JLabel("Gender:"), "growx, pushx");
-		empDetails.add(genderCombo = new JComboBox<String>(this.parent.gender), "growx, pushx, wrap");
+		empDetails.add(genderCombo = new JComboBox<>(this.parent.gender), "growx, pushx, wrap");
 
 		empDetails.add(new JLabel("Department:"), "growx, pushx");
-		empDetails.add(departmentCombo = new JComboBox<String>(this.parent.department), "growx, pushx, wrap");
+		empDetails.add(departmentCombo = new JComboBox<>(this.parent.department), "growx, pushx, wrap");
 
 		empDetails.add(new JLabel("Salary:"), "growx, pushx");
 		empDetails.add(salaryField = new JTextField(20), "growx, pushx, wrap");
 
 		empDetails.add(new JLabel("Full Time:"), "growx, pushx");
-		empDetails.add(fullTimeCombo = new JComboBox<String>(this.parent.fullTime), "growx, pushx, wrap");
+		empDetails.add(fullTimeCombo = new JComboBox<>(this.parent.fullTime), "growx, pushx, wrap");
 
 		buttonPanel.add(save = new JButton("Save"));
 		save.addActionListener(this);
@@ -109,7 +109,7 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 	}
 
 
-	public void addRecord() {
+	private void addRecord() {
 		boolean fullTime = false;
 		Employee theEmployee;//create a new employee
 
@@ -125,7 +125,7 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 	}
 
 	// check for input in text fields
-	public boolean checkInput() {
+	private boolean checkInput() {
 		boolean valid = true;
 
 		//Replaced with a constant that has a human-readable name explaining the meaning of the number.
@@ -156,8 +156,7 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 			departmentCombo.setBackground(BACKGROUND_COLOR);
 			valid = false;
 		}
-		try {// try to get values from text field
-			Double.parseDouble(salaryField.getText());
+		try {
 			// check if salary is greater than 0
 			if (Double.parseDouble(salaryField.getText()) < 0) {
 				salaryField.setBackground(BACKGROUND_COLOR);
@@ -176,7 +175,7 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 	}
 
 	// set text field to white colour
-	public void setToWhite() {
+	private void setToWhite() {
 
 		//Replaced with a constant that has a human-readable name explaining the meaning of the number.
 		//Allows background to be changed easily

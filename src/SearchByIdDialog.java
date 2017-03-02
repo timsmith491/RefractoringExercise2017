@@ -21,7 +21,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 
-public class SearchByIdDialog extends JDialog implements ActionListener {
+class SearchByIdDialog extends JDialog implements ActionListener {
 
 	//made variables private
 	private EmployeeDetails parent;
@@ -29,7 +29,7 @@ public class SearchByIdDialog extends JDialog implements ActionListener {
 	private JTextField searchField;
 
 	// constructor for SearchByIdDialog 
-	public SearchByIdDialog(EmployeeDetails parent) {
+	SearchByIdDialog(EmployeeDetails parent) {
 		setTitle("Search by Surname");
 		setModal(true);
 		this.parent = parent;
@@ -46,7 +46,7 @@ public class SearchByIdDialog extends JDialog implements ActionListener {
 	}
 	
 	// initialize search container
-	public Container searchPane() {
+	private Container searchPane() {
 		JPanel searchPanel = new JPanel(new GridLayout(3, 1));
 		JPanel textPanel = new JPanel();
 		JPanel buttonPanel = new JPanel();
@@ -76,17 +76,19 @@ public class SearchByIdDialog extends JDialog implements ActionListener {
 
 	// action listener for save and cancel button
 	public void actionPerformed(ActionEvent e) {
+		final Color BACKGROUND_COLOR = new Color(255,150,150);
 		if (e.getSource() == search) {
 			try {
-				Double.parseDouble(searchField.getText());
+//				Double.parseDouble(searchField.getText());
 				this.parent.searchByIdField.setText(searchField.getText());
 				this.parent.searchEmployeeById();
 				dispose();
 			} catch (NumberFormatException num) {
-				searchField.setBackground(new Color(255, 150, 150));
+				searchField.setBackground(BACKGROUND_COLOR);
 				JOptionPane.showMessageDialog(null, "Wrong ID format!");
 			}
-		} else if (e.getSource() == cancel)
+		}
+		else if (e.getSource() == cancel)
 			dispose();
 	}
 }

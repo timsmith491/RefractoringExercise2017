@@ -15,9 +15,22 @@ class RandomFile {
 	private RandomAccessFile output;
 	private RandomAccessFile input;
 
+	private RandomAccessFile file = null;
+
+	private void fileNotNull(){
+		try {
+			if (file != null)
+				file.close();
+		}
+		catch (IOException ioException) {
+			JOptionPane.showMessageDialog(null, "Error closing file!");
+			System.exit(1);
+		}
+	}
+
 	// Create new file
 	void createFile(String fileName) {
-		RandomAccessFile file = null;
+//		RandomAccessFile file = null;
 
 		try {
 			file = new RandomAccessFile(fileName, "rw");
@@ -28,20 +41,15 @@ class RandomFile {
 			System.exit(1);
 		}
 
+
+
 		finally {
-			try {
-				if (file != null)
-					file.close();
-			}
-			catch (IOException ioException) {
-				JOptionPane.showMessageDialog(null, "Error closing file!");
-				System.exit(1);
-			}
+			fileNotNull();
 		}
 	}
 
 	// Open file for adding or changing records
-    void openWriteFile(String fileName) {
+	void openWriteFile(String fileName) {
 		try
 		{
 			output = new RandomAccessFile(fileName, "rw");
@@ -52,21 +60,13 @@ class RandomFile {
 	}
 
 	// Close file for adding or changing records
-    void closeWriteFile() {
-		try
-		{
-			if (output != null)
-				output.close();
-		}
-		catch (IOException ioException) {
-			JOptionPane.showMessageDialog(null, "Error closing file!");
-			System.exit(1);
-		}
+	void closeWriteFile() {
+		fileNotNull();
 	}
 
 
 	long addRecords(Employee employeeToAdd) {
-        long currentRecordStart = 0;
+		long currentRecordStart = 0;
 
 		RandomAccessEmployeeRecord record;
 
@@ -87,9 +87,9 @@ class RandomFile {
 	}
 
 	// Change details for existing object
-    void changeRecords(Employee newDetails, long byteToStart) {
-        RandomAccessEmployeeRecord record;
-        try
+	void changeRecords(Employee newDetails, long byteToStart) {
+		RandomAccessEmployeeRecord record;
+		try
 		{
 			record = new RandomAccessEmployeeRecord(newDetails.getEmployeeId(), newDetails.getPps(),
 					newDetails.getSurname(), newDetails.getFirstName(), newDetails.getGender(),
@@ -106,7 +106,7 @@ class RandomFile {
 	void deleteRecords(long byteToStart) {
 
 
-        RandomAccessEmployeeRecord record;
+		RandomAccessEmployeeRecord record;
 
 		try {
 			record = new RandomAccessEmployeeRecord();// Create empty object
@@ -128,20 +128,21 @@ class RandomFile {
 	}
 
 	// Close file
-    void closeReadFile() {
-		try {
-			if (input != null)
-				input.close();
-		}
-		catch (IOException ioException) {
-			JOptionPane.showMessageDialog(null, "Error closing file!");
-			System.exit(1);
-		}
+	void closeReadFile() {
+		fileNotNull();
+//		try {
+//			if (input != null)
+//				input.close();
+//		}
+//		catch (IOException ioException) {
+//			JOptionPane.showMessageDialog(null, "Error closing file!");
+//			System.exit(1);
+//		}
 	}
-    
+
 
 	// Get position of first record in file
-    long getFirst() {
+	long getFirst() {
 		long byteToStart = 0;
 
 		try {
@@ -153,7 +154,7 @@ class RandomFile {
 	}
 
 	// Get position of last record in file
-    long getLast() {
+	long getLast() {
 		long byteToStart = 0;
 		try {
 			byteToStart = input.length() - RandomAccessEmployeeRecord.SIZE;
@@ -177,11 +178,11 @@ class RandomFile {
 		}
 		catch (NumberFormatException | IOException ignored) {
 		}
-        return byteToStart;
+		return byteToStart;
 	}
 
 	// Get position of previous record in file
-    long getPrevious(long readFrom) throws NumberFormatException {
+	long getPrevious(long readFrom) throws NumberFormatException {
 		long byteToStart = readFrom;
 
 		try {
@@ -197,7 +198,7 @@ class RandomFile {
 	}
 
 	// Get object from file in specified position
-    Employee readRecords(long byteToStart) {
+	Employee readRecords(long byteToStart) {
 		Employee thisEmp;
 		RandomAccessEmployeeRecord record = new RandomAccessEmployeeRecord();
 
@@ -207,17 +208,17 @@ class RandomFile {
 		}
 		catch (IOException ignored) {
 		}
-		
+
 		thisEmp = record;
 
 		return thisEmp;
 	}
 
 	// Check if PPS Number already in use
-    boolean isPpsExist(String pps, long currentByteStart) {
+	boolean isPpsExist(String pps, long currentByteStart) {
 		RandomAccessEmployeeRecord record = new RandomAccessEmployeeRecord();
 		boolean ppsExist = false;
-        long currentByte = 0;
+		long currentByte = 0;
 
 		try {
 			// Start from start of file and loop until PPS Number is found or search returned to start position

@@ -231,32 +231,35 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		JPanel buttonPanel = new JPanel();
 		JTextField field;
 
+		String labelConstant = "growx, pushx";
+		String inputFieldConstant = "growx, pushx, wrap";
+
 		empDetails.setBorder(BorderFactory.createTitledBorder("Employee Details"));
 
-		empDetails.add(new JLabel("ID:"), "growx, pushx");
-		empDetails.add(idField = new JTextField(20), "growx, pushx, wrap");
+		empDetails.add(new JLabel("ID:"), labelConstant);
+		empDetails.add(idField = new JTextField(20), inputFieldConstant);
 		idField.setEditable(false);
 
-		empDetails.add(new JLabel("PPS Number:"), "growx, pushx");
-		empDetails.add(ppsField = new JTextField(20), "growx, pushx, wrap");
+		empDetails.add(new JLabel("PPS Number:"), labelConstant);
+		empDetails.add(ppsField = new JTextField(20), inputFieldConstant);
 
-		empDetails.add(new JLabel("Surname:"), "growx, pushx");
-		empDetails.add(surnameField = new JTextField(20), "growx, pushx, wrap");
+		empDetails.add(new JLabel("Surname:"), labelConstant);
+		empDetails.add(surnameField = new JTextField(20), inputFieldConstant);
 
-		empDetails.add(new JLabel("First Name:"), "growx, pushx");
-		empDetails.add(firstNameField = new JTextField(20), "growx, pushx, wrap");
+		empDetails.add(new JLabel("First Name:"), labelConstant);
+		empDetails.add(firstNameField = new JTextField(20), inputFieldConstant);
 
-		empDetails.add(new JLabel("Gender:"), "growx, pushx");
-		empDetails.add(genderCombo = new JComboBox<>(gender), "growx, pushx, wrap");
+		empDetails.add(new JLabel("Gender:"), labelConstant);
+		empDetails.add(genderCombo = new JComboBox<>(gender), inputFieldConstant);
 
-		empDetails.add(new JLabel("Department:"), "growx, pushx");
-		empDetails.add(departmentCombo = new JComboBox<>(department), "growx, pushx, wrap");
+		empDetails.add(new JLabel("Department:"), labelConstant);
+		empDetails.add(departmentCombo = new JComboBox<>(department), inputFieldConstant);
 
-		empDetails.add(new JLabel("Salary:"), "growx, pushx");
-		empDetails.add(salaryField = new JTextField(20), "growx, pushx, wrap");
+		empDetails.add(new JLabel("Salary:"), labelConstant);
+		empDetails.add(salaryField = new JTextField(20), inputFieldConstant);
 
-		empDetails.add(new JLabel("Full Time:"), "growx, pushx");
-		empDetails.add(fullTimeCombo = new JComboBox<>(fullTime), "growx, pushx, wrap");
+		empDetails.add(new JLabel("Full Time:"), labelConstant);
+		empDetails.add(fullTimeCombo = new JComboBox<>(fullTime), inputFieldConstant);
 
 		buttonPanel.add(saveChange = new JButton("Save"));
 		saveChange.addActionListener(this);
@@ -652,45 +655,48 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 
 	// check for input in text fields
 	private boolean checkInput() {
+
+		final Color BACKGROUND_COLOR = new Color(255,150,150);
+
 		boolean valid = true;
 		if (ppsField.isEditable() && ppsField.getText().trim().isEmpty()) {
-			ppsField.setBackground(new Color(255, 150, 150));
+			ppsField.setBackground(BACKGROUND_COLOR);
 			valid = false;
 		}
 		if (ppsField.isEditable() && correctPps(ppsField.getText().trim(), currentByteStart)) {
-			ppsField.setBackground(new Color(255, 150, 150));
+			ppsField.setBackground(BACKGROUND_COLOR);
 			valid = false;
 		}
 		if (surnameField.isEditable() && surnameField.getText().trim().isEmpty()) {
-			surnameField.setBackground(new Color(255, 150, 150));
+			surnameField.setBackground(BACKGROUND_COLOR);
 			valid = false;
 		}
 		if (firstNameField.isEditable() && firstNameField.getText().trim().isEmpty()) {
-			firstNameField.setBackground(new Color(255, 150, 150));
+			firstNameField.setBackground(BACKGROUND_COLOR);
 			valid = false;
 		}
 		if (genderCombo.getSelectedIndex() == 0 && genderCombo.isEnabled()) {
-			genderCombo.setBackground(new Color(255, 150, 150));
+			genderCombo.setBackground(BACKGROUND_COLOR);
 			valid = false;
 		}
 		if (departmentCombo.getSelectedIndex() == 0 && departmentCombo.isEnabled()) {
-			departmentCombo.setBackground(new Color(255, 150, 150));
+			departmentCombo.setBackground(BACKGROUND_COLOR);
 			valid = false;
 		}
 		try {
 			if (Double.parseDouble(salaryField.getText()) < 0) {
-				salaryField.setBackground(new Color(255, 150, 150));
+				salaryField.setBackground(BACKGROUND_COLOR);
 				valid = false;
 			}
 		}
 		catch (NumberFormatException num) {
 			if (salaryField.isEditable()) {
-				salaryField.setBackground(new Color(255, 150, 150));
+				salaryField.setBackground(BACKGROUND_COLOR);
 				valid = false;
 			}
 		}
 		if (fullTimeCombo.getSelectedIndex() == 0 && fullTimeCombo.isEnabled()) {
-			fullTimeCombo.setBackground(new Color(255, 150, 150));
+			fullTimeCombo.setBackground(BACKGROUND_COLOR);
 			valid = false;
 		}
 		if (!valid)
